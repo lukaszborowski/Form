@@ -19,125 +19,87 @@
 
         <form class="needs-validation" novalidate>
             <div class="form-row">
-                <div class="col-md-4 mb-3">
-                    <label for="validationCustom01">First name</label>
-                    <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
+                <div class="col-md-4 mb-3 first-name">
+                    <label for="validationName">First name</label>
+                    <input type="text" class="form-control" id="validationName" placeholder="First name" value="Mark" required>
+                    <div class="validation"></div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <label for="validationCustom02">Last name</label>
-                    <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
+                <div class="col-md-4 mb-3 last-name">
+                    <label for="validationSurr">Last name</label>
+                    <input type="text" class="form-control" id="validationSurr" placeholder="Last name" value="Otto" required>
+                    <div class="validation"></div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <label for="validationCustomUsername">Username</label>
+                <div class="col-md-4 mb-3 user-name">
+                    <label for="validationUsername">Username</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroupPrepend">@</span>
                         </div>
-                        <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required>
-                        <div class="invalid-feedback">
-                            Please choose a username.
-                        </div>
+                        <input type="text" class="form-control" id="validationUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required>
+                        <div class="validation"></div>
                     </div>
                 </div>
             </div>
             <div class="form-row">
-                <div class="col-md-12 mb-3">
-                    <label for="validationAdress">Adress</label>
-                    <input type="text" class="form-control" id="validationAdress" placeholder="Adress Line" required>
-                    <div class="invalid-feedback">
-                        Please provide a Adress
-                    </div>
+                <div class="col-md-12 mb-3 adress-line">
+                    <label for="validationAdr">Adress</label>
+                    <input type="text" class="form-control" id="validationAdr" placeholder="Adress Line" required>
+                    <div class="validation"></div>
                 </div>
             </div>
             <div class="form-row">
-                <div class="col-md-6 mb-3">
-                    <label for="validationCustom03">City</label>
-                    <input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
-                    <div class="invalid-feedback">
-                        Please provide a valid city.
-                    </div>
+                <div class="col-md-6 mb-3 city-line">
+                    <label for="validationCity">City</label>
+                    <input type="text" class="form-control" id="validationCity" placeholder="City" required>
+                    <div class="validation"></div>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <label for="validationCustom04">State</label>
-                    <select class="form-control" id="validationCustom04"  required>
-                        <option selected>Choose</option>
-                        <option>dolnośląskie</option>
-                        <option>kujawsko-pomorskie</option>
-                        <option>lubelskie</option>
-                        <option>lubuskie</option>
-                        <option>łódzkie</option>
-                        <option>małopolskie</option>
-                        <option>mazowieckie</option>
-                        <option>opolskie</option>
-                        <option>podkarpackie</option>
-                        <option>podlaskie</option>
-                        <option>pomorskie</option>
-                        <option>śląskie</option>
-                        <option>świętokrzyskie</option>
-                        <option>warmińsko-mazurskie</option>
-                        <option>wielkopolskie</option>
-                        <option>zachodniopomorskie</option>
-                        <option></option>
+                <div class="col-md-3 mb-3 state-line">
+                    <label for="validationState">State</label>
+                    <select class="form-control" id="validationState" name="stateSelect"  required>
+                       <option selected>Choose</option>
 
                     </select>
-                    <div class="invalid-feedback">
-                        Please provide a valid state.
-                    </div>
+                    <div class="validation"></div>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <label for="validationCustom05">Zip</label>
-                    <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
-                    <div class="invalid-feedback">
-                        Please provide a valid zip.
-                    </div>
+                <div class="col-md-3 mb-3 zip-line">
+                    <label for="validationZip">Postal Code</label>
+                    <input type="text" class="form-control" id="validationZip" placeholder="Postal Code" required>
+                    <div class="validation"></div>
                 </div>
             </div>
             <div class="form-row">
-                <div class="col-md-7 mb-3">
-                    <label for="validationCustom06">Mail adress</label>
-                    <input type="text" class="form-control" id="validationCustom06" placeholder="Mail adress" required>
-                    <div class="invalid-feedback">
-                        Please provide a Mail Adress.
-                    </div>
+                <div class="col-md-7 mb-3 mail-line">
+                    <label for="validationMail">Mail adress</label>
+                    <input type="text" class="form-control" id="validationMail" placeholder="Mail adress" required>
+                    <div class="validation"></div>
                 </div>
-                <div class="col-md-5 mb-3">
-                    <label for="validationCustom07">Phone Number</label>
-                    <input type="text" class="form-control" id="validationCustom07" placeholder="123456789" required>
-                    <div class="invalid-feedback">
-                        Please provide Phone number
-                    </div>
+                <div class="col-md-5 mb-3 phone-line">
+                    <label for="validationPhone">Phone Number</label>
+                    <input type="text" class="form-control" id="validationPhone" placeholder="123456789" required>
+                    <div class="validation"></div>
                 </div>
             </div>
             <div class="form-row">
-                <div class="col-md-6 mb-3">
+                <div class="col-md-6 mb-3 gender-line">
                     <label>Gender</label>
-                    <select class="form-control">
+                    <select class="form-control" id="validationGender">
                         <option selected>Choose</option>
                         <option>Male</option>
                         <option>Female</option>
                         <option>Other</option>
                         <option>Dont want to tell</option>
                     </select>
+                    <div class="validation"></div>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <label for="validationCustom08">Year of Birth</label>
-                    <input type="text" class="form-control" id="validationCustom08" placeholder="1900" required>
-                    <div class="invalid-feedback">
-                        Please Select Your birth date
-                    </div>
+                <div class="col-md-3 mb-3 birth-line">
+                    <label for="validationBirth">Month/Year of Birth</label>
+                    <input type="text" class="form-control" id="validationBirth" placeholder="01/1900" required>
+                    <div class="validation"></div>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <label for="validationCustom09">Age</label>
-                    <input type="text" class="form-control" id="validationCustom09" value="22" required readonly>
-                    <div class="invalid-feedback">
-                        Please provide Phone number
-                    </div>
+                <div class="col-md-3 mb-3 age-line">
+                    <label for="validationAge">Age</label>
+                    <input type="text" class="form-control" id="validationAge" value="22" required readonly>
+                    <div class="validation"></div>
                 </div>
 
             </div>
@@ -150,9 +112,7 @@
                     <label class="form-check-label" for="invalidCheck">
                         Agree to terms and conditions
                     </label>
-                    <div class="invalid-feedback">
-                        You must agree before submitting.
-                    </div>
+                    <div class="validation"></div>
                 </div>
             </div>
             <button class="btn btn-primary" type="submit">Submit form</button>

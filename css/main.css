@@ -2,24 +2,31 @@
 * {
   margin: 0 auto;
   font-family: 'Roboto', Arial, sans-serif;
-
 }
 
 body {
-  background-color: black;
+  background-color: #293241;
 }
 
 .main__container {
-  background-color: #ffdf3d;
-  border-radius: 1rem;
-  padding: 1rem;
+  margin: 2% 20% 2% 20%;
+  border: 1px solid black;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
   width: 60%;
-  margin: 5% 20% 5% 20%;
+  background-color: #ffdf3d;
+  border-radius: 0.3rem;
 }
 
-.invalid-feedback {
-  display: block; !important;
+.isValid {
+  color: limegreen;
+  font-size: 1rem;
 }
-.valid-feedback {
-  display: block; !important;
+
+.isInvalid {
+  color: red;
+  font-size: 1rem;
 }
+
+/*# sourceMappingURL=main.css.map */
