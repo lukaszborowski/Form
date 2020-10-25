@@ -17,6 +17,7 @@ body {
   width: 60%;
   background-color: #ffdf3d;
   border-radius: 0.3rem;
+  padding: 1.5rem;
 }
 
 .isValid {
@@ -27,6 +28,14 @@ body {
 .isInvalid {
   color: red;
   font-size: 1rem;
+}
+
+label {
+  font-size: 1.2rem;
+  border: 0.2rem solid pink;
+  border-radius: 0.1rem;
+  min-width: 100%;
+  padding: .2rem;
 }
 
 /*# sourceMappingURL=main.css.map */
