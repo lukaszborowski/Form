@@ -21,7 +21,7 @@ body {
   border: 1px solid black;
   height: max-content;
   width: 60%;
-  background-color: #ffdf3d;
+  background-color: #3108d4;
   border-radius: 0.3rem;
   padding: 1.5rem;
 }
@@ -38,7 +38,8 @@ body {
 }
 
 .restricted-perm {
-
+  color: #ffdf3d;
+  font-size: 1rem;
 }
 
 label {

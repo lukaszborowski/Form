@@ -15,7 +15,7 @@ body {
   height: -moz-max-content;
   height: max-content;
   width: 60%;
-  background-color: #ffdf3d;
+  background-color: #3108d4;
   border-radius: 0.3rem;
   padding: 1.5rem;
 }
@@ -27,6 +27,11 @@ body {
 
 .isInvalid {
   color: red;
+  font-size: 1rem;
+}
+
+.restricted-perm {
+  color: #ffdf3d;
   font-size: 1rem;
 }
 

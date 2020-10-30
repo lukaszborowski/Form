@@ -16,6 +16,18 @@ document.addEventListener("DOMContentLoaded", function() {
     const valBirth = $("#validationBirth");
     const valAge = $("#validationAge");
     const select1 = $("select[name=stateSelect]");
+    const firstNameVal = $(".first-name > .validation");
+    const surrNameVal = $(".last-name > .validation");
+    const userNameVal = $(".user-name > .validation");
+    const adressVal = $(".adress-line > .validation");
+    const cityVal = $(".city-line > .validation");
+    const stateVal = $(".state-line > .validation");
+    const zipVal = $(".zip-line > .validation");
+    const mailVal = $(".mail-line > .validation");
+    const phoneVal = $(".phone-line > .validation");
+    const genderVal = $(".gender-line > .validation");
+    const birthVal = $(".birth-line > .validation");
+    const ageVal = $(".age-line > .validation");
     const states = [
                     "Dolnośląskie",
                     "Kujawsko-Pomorskie",
@@ -40,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const callbacks = $.Callbacks();
 
 
+
     // Functions
 
     const insertState = () => {
@@ -52,36 +65,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // Permisions
-    const noPerm = (element)=> {
-        const $removeValid = $(".isValid");
-        const $removeRest = $(".restricted-perm");
-        const $removeInval = $(".isInvalid");
-        const $div = $("<div>", {class: "isInvalid"});
-        $div.text("Looks Bad");
-        $removeValid.remove();
-        $removeRest.remove();
-        $removeInval.remove();
-        element.after($div);
+    const noPerm = (element, validation)=> {
+        validation.removeClass("isValid restricted-perm");
+        validation.addClass("isInvalid");
+        validation.text("Looks Bad");
         lookBad(element);
     };
 
-    const restriPerm = (element)=> {
-        const $removeInval = $(".isInvalid");
-        const $removeValid = $(".isValid");
-        const $div = $("<div>", {class: "restricted-perm"});
-        $removeInval.remove();
-        $removeValid.remove();
-        element.after($div);
+    const restriPerm = (element, validation)=> {
+        validation.removeClass("isValid isInvalid");
+        validation.addClass("restricted-perm");
+        validation.text("Stricted Permission Added");
+        lookRestri(element);
+
     };
 
-    const fullPerm = (element)=> {
-        const $removeInval = $(".isInvalid");
-        const $removeRest = $(".restricted-perm");
-        const $div = $("<div>", {class: "isValid"});
-        $div.text("Looks Good");
-        $removeInval.remove();
-        $removeRest.remove();
-        element.after($div);
+    const fullPerm = (element, validation)=> {
+        validation.removeClass("isInvalid restricted-perm");
+        validation.addClass("isValid");
+        validation.text("Looks Good");
         lookGood(element)
     };
 
@@ -92,58 +94,43 @@ document.addEventListener("DOMContentLoaded", function() {
         valAge.val(first);
 
         if(first < teenager) {
-            noPerm(element);
+            noPerm(element, ageVal);
         }else if(first === teenager && second < month){
-            noPerm(element);
+            noPerm(element, ageVal);
         }else if(first === teenager && second >= month){
-            restriPerm(element);
+            restriPerm(element, ageVal);
         }else if(first > teenager && first < adult){
-            restriPerm(element);
+            restriPerm(element, ageVal);
         }else if(first === adult && second < month) {
-            restriPerm(element);
+            restriPerm(element, ageVal);
         }else if(first === adult && second >= month){
-            fullPerm(element);
+            fullPerm(element, ageVal);
         }else if(first > adult){
-            fullPerm(element);
+            fullPerm(element, ageVal);
         }
 
     };
 
 
-    // const Validation = function(){
-    //     this.table = [];
-    //     this.validated = 0;
-    //     this.unvalidated = 0;
-    // };
-    //
-    // Validation.prototype.addValid = function(name, valid){
-    //     const object = {
-    //         name: name,
-    //         valid: valid,
-    //     };
-    //     this.table.push(object);
-    //
-    // };
-    //
-    // Validation.prototype.addInvalid = function(name, invalid){
-    //     const object = {
-    //         name: name,
-    //         valid: invalid,
-    //     };
-    //     this.table.push(object);
-    // };
-
     const lookGood = (element) => {
 
-        element.css("background-color", "rgba(79, 248, 32, 0.20)");
+        element.css("background-color", "#02d625");
+        element.removeClass("needs-validation");
         element.addClass("was-validated");
 
     };
 
     const lookBad = (element) => {
-        element.css("background-color", "rgba(250, 0, 0, 0.20)");
+        element.css("background-color", "#d40819");
+        element.removeClass("was-validated");
         element.addClass("needs-validation");
 
+    };
+
+    const lookRestri = (element) => {
+        element.css("background-color", "#ede207");
+        element.removeClass("needs-validation");
+        element.addClass("was-validated");
     };
 
 
@@ -163,10 +150,10 @@ document.addEventListener("DOMContentLoaded", function() {
         const regName = /[A-Z][a-zA-Z][^#&<>\"@~;$^%{}?!*|`_+=-]{1,20}$/i;
 
         if (regName.test(val)) {
-            fullPerm(valName)
+            fullPerm(valName, firstNameVal)
 
         } else {
-            noPerm(valName)
+            noPerm(valName, firstNameVal)
 
 
         }
@@ -179,9 +166,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const regSurr = /[A-Z][a-zA-Z][^#&<>\"@~;$^%{}?!*|`_+=-]{1,20}$/i;
 
         if (regSurr.test(val)) {
-           fullPerm(valSurr);
+           fullPerm(valSurr, surrNameVal);
         } else {
-            noPerm(valSurr);
+            noPerm(valSurr, surrNameVal);
         }
     });
 
@@ -192,9 +179,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const regUser =/[A-Z][a-zA-Z][^#"@~;]{1,20}$/i;
 
         if (regUser.test(val)) {
-            fullPerm(valUser);
+            fullPerm(valUser, userNameVal);
         } else {
-            noPerm(valUser);
+            noPerm(valUser, userNameVal);
         }
     });
 
@@ -204,9 +191,9 @@ document.addEventListener("DOMContentLoaded", function() {
         let val = valAdr.val();
 
         if (val.length >= 3) {
-           fullPerm(valAdr)
+           fullPerm(valAdr, adressVal)
         } else {
-            noPerm(valAdr)
+            noPerm(valAdr, adressVal)
         }
     });
 
@@ -216,9 +203,9 @@ document.addEventListener("DOMContentLoaded", function() {
         let val = valCity.val();
 
         if (val.length >= 3) {
-            fullPerm(valCity);
+            fullPerm(valCity, cityVal);
         } else {
-            noPerm(valCity);
+            noPerm(valCity, cityVal);
         }
     });
 
@@ -234,10 +221,10 @@ document.addEventListener("DOMContentLoaded", function() {
            console.log(val);
 
             if(val === elem) {
-                fullPerm(valState);
+                fullPerm(valState, stateVal);
                 break;
             } else {
-               noPerm(valState)
+               noPerm(valState, stateVal)
             }
         }
 
@@ -250,9 +237,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const regZip = /^([0-9]{2})(-[0-9]{3})?$/i;
 
         if (regZip.test(val)) {
-            fullPerm(valZip);
+            fullPerm(valZip, zipVal);
         } else {
-           noPerm(valZip);
+           noPerm(valZip, zipVal);
         }
     });
 
@@ -262,9 +249,9 @@ document.addEventListener("DOMContentLoaded", function() {
         let val = valMail.val();
         const regMail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
         if (!regMail.test(val)) {
-            fullPerm(valMail);
+            fullPerm(valMail, mailVal);
         } else {
-            noPerm(valMail);
+            noPerm(valMail, mailVal);
         }
     });
 
@@ -274,9 +261,9 @@ document.addEventListener("DOMContentLoaded", function() {
         let val = valPhone.val();
         const regPhone = /^(\+48\s*)?\d{2}\s*\d{3}(\s*|\-)\d{2}(\s*|\-)\d{2}$/i;
         if (regPhone.test(val)) {
-            fullPerm(valPhone);
+            fullPerm(valPhone, phoneVal);
         } else {
-            noPerm(valPhone);
+            noPerm(valPhone, phoneVal);
         }
     });
 
@@ -286,9 +273,9 @@ document.addEventListener("DOMContentLoaded", function() {
         let val = valGender.val();
 
         if (val === "Male" || val === "Female" || val === "Other" || val === "Dont want to tell") {
-           fullPerm(valGender);
+           fullPerm(valGender, genderVal);
         } else {
-           noPerm(valGender);
+           noPerm(valGender, genderVal);
         }
     });
 
@@ -312,13 +299,13 @@ document.addEventListener("DOMContentLoaded", function() {
         // end of global scope
 
         if(regBirth.test(val) && userYears() < Number(125)) {
-            fullPerm(valBirth);
+            fullPerm(valBirth, birthVal);
             callbacks.add(insertAge(userYears(), userMonth(),valAge));
             callbacks.fire();
-            callbacks.remove(insertAge(userYears(), userMonth(), valAge));
+            callbacks.remove(insertAge(userYears(), userMonth(), valAge,));
 
         } else {
-           noPerm(valBirth);
+           noPerm(valBirth, birthVal);
         }
 
     });
