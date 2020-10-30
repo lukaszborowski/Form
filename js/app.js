@@ -38,19 +38,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const year = datePick.getFullYear();
     const month = datePick.getMonth();
     const callbacks = $.Callbacks();
-    const regName = /[A-Z][a-zA-Z][^#&<>\"@~;$^%{}?!*|`_+=-]{1,20}$/i;
-    const regSurr = /[A-Z][a-zA-Z][^#&<>\"@~;$^%{}?!*|`_+=-]{1,20}$/i;
-    const regUser =/[A-Z][a-zA-Z][^#"@~;]{1,20}$/i;
-    const regZip = /^([0-9]{2})(-[0-9]{3})?$/i;
-    const regMail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
-    const regPhone = /^(\+48\s*)?\d{2}\s*\d{3}(\s*|\-)\d{2}(\s*|\-)\d{2}$/i;
-
-
 
 
     // Functions
 
-    const insertState = ()=> {
+    const insertState = () => {
         for (let el of states){
             let smlEl = el.toLowerCase();
             const $option = $("<option>", {value: smlEl}).text(el);
@@ -58,35 +50,38 @@ document.addEventListener("DOMContentLoaded", function() {
 
     }};
 
-    const grabClass = (element) => {
-        let parent = element.parents(element);
-        let parentClass = parent.attr("class");
-        // console.log(parentClass);
-        let parentClassFix = parentClass.slice(14,24);
-        const selector = $("pa")
-        // let parentClassFixed = "."+parentClassFix;
-        // const correct = document.getElementsByClassName('parentClassFixed');
-
-        // console.log(correct);
-            // $('parentClassFixed > .validation');
-        // return (correct);
-        // console.log(parentClass);
-        // console.log(parentClassFix);
-
-    };
 
     // Permisions
     const noPerm = (element)=> {
-        correct().removeClass("isValid", "restricted-perm").addClass("isInvalid").text('Wrong - too young');
+        const $removeValid = $(".isValid");
+        const $removeRest = $(".restricted-perm");
+        const $removeInval = $(".isInvalid");
+        const $div = $("<div>", {class: "isInvalid"});
+        $div.text("Looks Bad");
+        $removeValid.remove();
+        $removeRest.remove();
+        $removeInval.remove();
+        element.after($div);
         lookBad(element);
     };
 
-    const restriPerm = ()=> {
-        $(".age-line > .validation").removeClass("isValid", "isInvalid").addClass("restricted-perm").text('Restricted Access');
+    const restriPerm = (element)=> {
+        const $removeInval = $(".isInvalid");
+        const $removeValid = $(".isValid");
+        const $div = $("<div>", {class: "restricted-perm"});
+        $removeInval.remove();
+        $removeValid.remove();
+        element.after($div);
     };
 
-    const fullPerm = ()=> {
-        $(".age-line > .validation").removeClass("isInvalid", "restricted-perm").addClass("isValid").text("Looks Good");
+    const fullPerm = (element)=> {
+        const $removeInval = $(".isInvalid");
+        const $removeRest = $(".restricted-perm");
+        const $div = $("<div>", {class: "isValid"});
+        $div.text("Looks Good");
+        $removeInval.remove();
+        $removeRest.remove();
+        element.after($div);
         lookGood(element)
     };
 
@@ -97,19 +92,19 @@ document.addEventListener("DOMContentLoaded", function() {
         valAge.val(first);
 
         if(first < teenager) {
-            noPerm();
+            noPerm(element);
         }else if(first === teenager && second < month){
-            noPerm();
+            noPerm(element);
         }else if(first === teenager && second >= month){
-            restriPerm();
+            restriPerm(element);
         }else if(first > teenager && first < adult){
-            restriPerm()
+            restriPerm(element);
         }else if(first === adult && second < month) {
-            restriPerm();
+            restriPerm(element);
         }else if(first === adult && second >= month){
-            fullPerm();
+            fullPerm(element);
         }else if(first > adult){
-            fullPerm();
+            fullPerm(element);
         }
 
     };
@@ -151,24 +146,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     };
 
-    const validation = (element, reg) => {
-        element.on('change', ()=>{
-            let val = element.val();
-
-            if(reg.test(val)){
-                fullPerm();
-            }else {
-                noPerm()
-            }
-        })
-    };
 
     callbacks.add(insertState);
     callbacks.fire();
     callbacks.remove(insertState);
-    callbacks.add(grabClass(valName));
-    callbacks.fire();
-
 
     //
     // VALIDATIONS
@@ -176,18 +157,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Name Validation
 
+
     valName.on('change', () => {
         let val = valName.val();
         const regName = /[A-Z][a-zA-Z][^#&<>\"@~;$^%{}?!*|`_+=-]{1,20}$/i;
 
         if (regName.test(val)) {
-            $(".first-name > .validation").removeClass("isInvalid").addClass("isValid").text("Looks Good");
-            lookGood(valName);
-
+            fullPerm(valName)
 
         } else {
-            $(".first-name > .validation").removeClass("isValid").addClass("isInvalid").text('Incorrect Name!');
-            lookBad(valName)
+            noPerm(valName)
+
+
         }
     });
 
@@ -198,11 +179,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const regSurr = /[A-Z][a-zA-Z][^#&<>\"@~;$^%{}?!*|`_+=-]{1,20}$/i;
 
         if (regSurr.test(val)) {
-            $(".last-name > .validation").removeClass("isInvalid").addClass("isValid").text("Looks Good");
-            lookGood(valSurr);
+           fullPerm(valSurr);
         } else {
-            $(".last-name > .validation").removeClass("isValid").addClass("isInvalid").text('Incorrect Surrname');
-            lookBad(valSurr)
+            noPerm(valSurr);
         }
     });
 
@@ -213,11 +192,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const regUser =/[A-Z][a-zA-Z][^#"@~;]{1,20}$/i;
 
         if (regUser.test(val)) {
-            $(".user-name > .validation").removeClass("isInvalid").addClass("isValid").text("Looks Good");
-            lookGood(valUser);
+            fullPerm(valUser);
         } else {
-            $(".user-name > .validation").removeClass("isValid").addClass("isInvalid").text('Incorrect Username');
-            lookBad(valUser)
+            noPerm(valUser);
         }
     });
 
@@ -227,11 +204,9 @@ document.addEventListener("DOMContentLoaded", function() {
         let val = valAdr.val();
 
         if (val.length >= 3) {
-            $(".adress-line > .validation").removeClass("isInvalid").addClass("isValid").text("Looks Good");
-            lookGood(valAdr);
+           fullPerm(valAdr)
         } else {
-            $(".adress-line > .validation").removeClass("isValid").addClass("isInvalid").text('Incorrect Adress');
-            lookBad(valAdr)
+            noPerm(valAdr)
         }
     });
 
@@ -241,11 +216,9 @@ document.addEventListener("DOMContentLoaded", function() {
         let val = valCity.val();
 
         if (val.length >= 3) {
-            $(".city-line > .validation").removeClass("isInvalid").addClass("isValid").text("Looks Good");
-            lookGood(valCity);
+            fullPerm(valCity);
         } else {
-            $(".city-line > .validation").removeClass("isValid").addClass("isInvalid").text('Incorrect City name');
-            lookBad(valCity)
+            noPerm(valCity);
         }
     });
 
@@ -257,13 +230,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
         for(let el of states){
            let elem = el.toLowerCase();
+           console.log(elem);
+           console.log(val);
 
             if(val === elem) {
-                $(".state-line > .validation").removeClass("isInvalid").addClass("isValid").text("Looks Good");
-                lookGood(valState);
+                fullPerm(valState);
+                break;
             } else {
-                $(".state-line > .validation").removeClass("isValid").addClass("isInvalid").text('Incorrect State');
-                lookBad(valState);
+               noPerm(valState)
             }
         }
 
@@ -276,11 +250,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const regZip = /^([0-9]{2})(-[0-9]{3})?$/i;
 
         if (regZip.test(val)) {
-            $(".zip-line > .validation").removeClass("isInvalid").addClass("isValid").text("Looks Good");
-            lookGood(valZip);
+            fullPerm(valZip);
         } else {
-            $(".zip-line > .validation").removeClass("isValid").addClass("isInvalid").text('Incorrect Post-Code');
-
+           noPerm(valZip);
         }
     });
 
@@ -290,13 +262,9 @@ document.addEventListener("DOMContentLoaded", function() {
         let val = valMail.val();
         const regMail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
         if (!regMail.test(val)) {
-
-            $(".mail-line > .validation").removeClass("isValid").addClass("isInvalid").text('Wrong Mail. Try like - sample@sample.com');
-            lookGood(valMail)
+            fullPerm(valMail);
         } else {
-
-            $(".mail-line > .validation").removeClass("isInvalid").addClass("isValid").text("Looks Good");
-            lookBad(valMail)
+            noPerm(valMail);
         }
     });
 
@@ -306,11 +274,9 @@ document.addEventListener("DOMContentLoaded", function() {
         let val = valPhone.val();
         const regPhone = /^(\+48\s*)?\d{2}\s*\d{3}(\s*|\-)\d{2}(\s*|\-)\d{2}$/i;
         if (regPhone.test(val)) {
-            $(".phone-line > .validation").removeClass("isInvalid").addClass("isValid").text("Looks Good");
-            lookGood(valPhone)
+            fullPerm(valPhone);
         } else {
-            $(".phone-line > .validation").removeClass("isValid").addClass("isInvalid").text('Wrong Phone number');
-            lookBad(valPhone)
+            noPerm(valPhone);
         }
     });
 
@@ -320,11 +286,9 @@ document.addEventListener("DOMContentLoaded", function() {
         let val = valGender.val();
 
         if (val === "Male" || val === "Female" || val === "Other" || val === "Dont want to tell") {
-            $(".gender-line > .validation").removeClass("isInvalid").addClass("isValid").text("Looks Good");
-
+           fullPerm(valGender);
         } else {
-            $(".gender-line > .validation").removeClass("isValid").addClass("isInvalid").text('Please Choose Gender');
-
+           noPerm(valGender);
         }
     });
 
@@ -348,15 +312,13 @@ document.addEventListener("DOMContentLoaded", function() {
         // end of global scope
 
         if(regBirth.test(val) && userYears() < Number(125)) {
-            $(".birth-line > .validation").removeClass("isInvalid").addClass("isValid").text("Looks Good");
-            lookGood(valBirth);
+            fullPerm(valBirth);
             callbacks.add(insertAge(userYears(), userMonth(),valAge));
             callbacks.fire();
             callbacks.remove(insertAge(userYears(), userMonth(), valAge));
 
         } else {
-            $(".birth-line > .validation").removeClass("isValid").addClass("isInvalid").text('Wrong Date');
-            lookBad(valBirth);
+           noPerm(valBirth);
         }
 
     });
