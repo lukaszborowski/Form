@@ -5,7 +5,7 @@
 }
 
 body {
-  background-color: #293241;
+  background-color: #A5FFD6;
 }
 
 .main__container {
@@ -15,7 +15,7 @@ body {
   height: -moz-max-content;
   height: max-content;
   width: 60%;
-  background-color: #3108d4;
+  background-color: #817F75;
   border-radius: 0.3rem;
   padding: 1.5rem;
 }
@@ -37,10 +37,15 @@ body {
 
 label {
   font-size: 1.2rem;
-  border: 0.2rem solid pink;
-  border-radius: 0.1rem;
+  background-color: #A5FFD6;
+  border-radius: 0.2rem;
   min-width: 100%;
   padding: .2rem;
+}
+
+.btn, .btn-primary {
+  background-color: #A5FFD6 !important;
+  color: black !important;
 }
 
 /*# sourceMappingURL=main.css.map */
